@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_20">20dp</dimen>
+
+    <dimen name="margin_65">65dp</dimen>
+
+    <dimen name="text_40">40sp</dimen>
+
+    <dimen name="width_78">78dp</dimen>
+
+    <dimen name="height_1">1dp</dimen>
 </resources>

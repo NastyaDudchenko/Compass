@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CompassView">
+        <attr name="compassBaseWidth" format="float" />
+        <attr name="baseColor" format="color" />
+        <attr name="arrowColor" format="color" />
+    </declare-styleable>
+</resources>
