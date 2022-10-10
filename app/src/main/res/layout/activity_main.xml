@@ -7,16 +7,14 @@
         android:id="@+id/mainContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".main.MainActivity">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/compassIcon"
+        <include
+            android:id="@+id/compass"
+            layout="@layout/layout_compass"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="@dimen/padding_20"
-            android:src="@drawable/ic_compass"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

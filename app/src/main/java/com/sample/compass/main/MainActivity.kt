@@ -1,4 +1,4 @@
-package com.sample.compass
+package com.sample.compass.main
 
 import android.content.Context
 import android.hardware.Sensor
@@ -29,12 +29,16 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
-        @Suppress("DEPRECATION")
         sensorManager?.registerListener(
             this,
             sensorManager?.getDefaultSensor(Sensor.TYPE_ORIENTATION),
             SensorManager.SENSOR_DELAY_GAME
         )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager?.unregisterListener(this)
     }
 
     private fun initData() {
@@ -43,18 +47,19 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(sensorEvent: SensorEvent?) {
         val event = sensorEvent ?: return
-        val degree: Int = (event.values[0]).roundToInt()
+        val azimuth: Int = (event.values[0]).roundToInt()
         val rotateAnimation = RotateAnimation(
-            currentDegree, (-degree).toFloat(),
+            currentDegree, (-azimuth).toFloat(),
             Animation.RELATIVE_TO_SELF, PIVOT_X_VALUE,
             Animation.RELATIVE_TO_SELF, PIVOT_Y_VALUE
         )
+        currentDegree = (-azimuth).toFloat()
 
         rotateAnimation.duration = ROTATE_ANIMATION_DURATION
         rotateAnimation.fillAfter = true
 
-        binding.compassIcon.startAnimation(rotateAnimation)
-        currentDegree = (-degree).toFloat()
+        binding.compass.compassCustom.startAnimation(rotateAnimation)
+        binding.compass.compassAzimuth.text = "$azimuth°"
     }
 
     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
