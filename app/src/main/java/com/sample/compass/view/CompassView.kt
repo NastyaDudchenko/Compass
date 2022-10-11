@@ -1,4 +1,4 @@
-package com.sample.compass.custom
+package com.sample.compass.view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,6 +7,8 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
 import androidx.core.content.ContextCompat
 import com.sample.compass.R
 
@@ -19,6 +21,7 @@ class CompassView @JvmOverloads constructor(
     private var baseColor = ContextCompat.getColor(context, R.color.primaryDarkColor)
     private var arrowColor = ContextCompat.getColor(context, R.color.secondaryColor)
     private var compassBaseWidth = DEFAULT_COMPASS_BASE_WIDTH
+    private var currentDegree = 0F
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.CompassView, 0, 0).apply {
@@ -97,6 +100,23 @@ class CompassView @JvmOverloads constructor(
         canvas.drawPath(path, trianglePaint)
     }
 
+    private fun getRotateAnimation(azimuth: Float): RotateAnimation {
+        val rotateAnimation = RotateAnimation(
+            currentDegree, (-azimuth),
+            Animation.RELATIVE_TO_SELF, PIVOT_X_VALUE,
+            Animation.RELATIVE_TO_SELF, PIVOT_Y_VALUE
+        )
+        currentDegree = (-azimuth)
+        rotateAnimation.duration = ROTATE_ANIMATION_DURATION
+        rotateAnimation.fillAfter = true
+
+        return rotateAnimation
+    }
+
+    fun startAnimateCompass(azimuth: Float) {
+        startAnimation(getRotateAnimation(azimuth))
+    }
+
     companion object {
         private const val PADDING = 64
         private const val DEFAULT_COMPASS_BASE_WIDTH = 30F
@@ -105,5 +125,9 @@ class CompassView @JvmOverloads constructor(
         private const val INCLINE_ANGLE = 40F
         private const val START_ANGLE = -90F - INCLINE_ANGLE
         private const val SWEEP_ANGLE = INCLINE_ANGLE * 2
+
+        private const val PIVOT_X_VALUE = 0.5F
+        private const val PIVOT_Y_VALUE = 0.5F
+        private const val ROTATE_ANIMATION_DURATION = 210L
     }
 }
