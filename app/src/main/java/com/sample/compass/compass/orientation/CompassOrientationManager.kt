@@ -10,7 +10,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.sample.compass.compass.CompassListener
 
-class CompassManager(
+class CompassOrientationManager(
     private val context: Context,
     private val listener: CompassListener? = null
 ) : DefaultLifecycleObserver, SensorEventListener {
