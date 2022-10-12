@@ -3,14 +3,14 @@ package com.sample.compass.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.sample.compass.compass.CompassListener
-import com.sample.compass.compass.CompassManager
+import com.sample.compass.compass.vector.CompassVectorManager
 import com.sample.compass.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity(), CompassListener {
 
     private lateinit var binding: ActivityMainBinding
-    private val compassManager by lazy { CompassManager(this, this) }
+    private val compassManager by lazy { CompassVectorManager(this, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
